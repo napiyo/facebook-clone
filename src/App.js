@@ -5,8 +5,11 @@ import Sidebar from './components/Sidebar';
 import LoginSignupPage from './login-signup-page/login-signup-page'
 import './App.css';
 import RightBar from './components/RightBar';
+import { useState } from 'react';
 
 function App() {
+    const[User,setUser]=useState(null);
+    if(User !=null){
     return ( <div className='Header'>
         <Header />
         <div className='main_body'>
@@ -17,7 +20,10 @@ function App() {
 
         </div>
         </div>
-    );
+    );}
+    else{
+        return <LoginSignupPage/>
+    }
 }
 
 export default App;

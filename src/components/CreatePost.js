@@ -1,17 +1,61 @@
-import { Avatar } from '@mui/material'
-import React from 'react'
+import { Avatar, IconButton, Modal } from '@mui/material'
+import React ,{useState} from 'react'
 import './stylesheets/CreatePost.css'
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import { width } from '@mui/system';
+import { Close, EmojiEmotionsOutlined } from '@mui/icons-material';
 
 export default function CreatePost() {
-    return (
+    const[open,setOpen]=useState(true)
+    // const [state, setstate] = useState(initialState)
+    const ModalHandler=()=>{
+       if(open){
+        setOpen(false)}
+        else{
+            setOpen(true)
+        }
+    }
+    return (<>
+    
+    <Modal open={open} onClose={ModalHandler}>
+        <div className="CreatePostModal">
+        <div className="ModalHeader">
+            <p>Create Post</p>
+           <span className="Modal_close_btn"> <IconButton > 
+                <Close sx={{color:"white"}} onClick={ModalHandler}/>
+            </IconButton>
+            </span>
+        </div>
+        <div style={{height:1,borderBottom:`solid 1px #505151`,margin:`5px`}}></div>
+        <div className="Modal__userDetails">
+            <Avatar/>
+            <p>Narendra Dewasi</p>
+        </div>
+        <div className="Modal__caption__Editor">
+            <form>
+                <textarea className="Modal__textEditor" rows="10" placeholder="What's on your Mind,Narendra?"></textarea>
+                <div className="Editor__options">
+                    <p>Add to your post</p>
+                    <div className="upload_options">
+                        <PhotoLibraryIcon />
+                        <EmojiEmotionsOutlined/>
+                    </div>
+                   
+                </div>
+                <button className="Post_btn">Post</button>
+            </form>
+        </div>
+
+
+
+        </div>
+    </Modal>
         <div className="CreatePostContainer">
             <div className="upperContainer">
                 <Avatar src="https://wallpaperaccess.com/full/5704723.jpg"/>
-                <input type="text" placeholder="What's on Your mind, Narendra?"/>
+                <input type="text" onChange={ModalHandler} onClick={ModalHandler} placeholder="What's on Your mind, Narendra?"/>
                
             </div>
             <div style={{height:1,borderBottom:`solid 1px #3A3B3C` ,width:'90%', margin:`0 auto 0 auto`}}></div>
@@ -25,5 +69,6 @@ export default function CreatePost() {
                     <SentimentSatisfiedIcon sx={{color:'yellow',marginRight:'5px'}}/> Feeling/Activity</div>
             </div>
         </div>
+        </>
     )
 }
