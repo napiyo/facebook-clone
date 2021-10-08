@@ -1,0 +1,51 @@
+.CreatePostContainer {
+    margin: 0px auto;
+    width: 100%;
+    background-color: #242526;
+    border-radius: 10px;
+}
+
+.upperContainer {
+    display: flex;
+    padding: 10px 15px;
+    column-gap: 10px;
+}
+
+.upperContainer>input {
+    border: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 20px;
+    border-radius: 20px;
+    background-color: #3A3B3C;
+    font-size: 15px;
+    width: 100%;
+    color: white;
+}
+
+.upperContainer>input:focus {
+    outline: none;
+}
+
+.lowerContainer {
+    display: flex;
+    column-gap: 5px;
+    margin: 10px;
+}
+
+.lowerContainer>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0.33;
+    height: 50px;
+    padding: 0 5px;
+    color: rgb(126, 122, 118);
+}
+
+.lowerContainer>div:hover {
+    background-color: #3A3B3C;
+    cursor: pointer;
+    border-radius: 5px;
+}

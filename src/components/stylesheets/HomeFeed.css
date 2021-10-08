@@ -1,0 +1,8 @@
+.HomeFeed {
+    display: flex;
+    width: 75%;
+    min-height: 300px;
+    margin: 10px auto 0 auto;
+    flex-direction: column;
+    row-gap: 20px;
+}

@@ -1,0 +1,19 @@
+@font-face {
+    font-family: Helvetica;
+    src: url(./Helvetica.ttf);
+}
+
+@font-face {
+    font-family: Helvetica-Bold;
+    src: url(./Helvetica-Bold.ttf);
+}
+
+@font-face {
+    font-family: Helvetica-Light;
+    src: url(./helvetica-light-587ebe5a59211.ttf);
+}
+
+@font-face {
+    font-family: 'Segoe UI';
+    src: url(./Segoe\ UI.ttf);
+}

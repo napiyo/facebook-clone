@@ -1,0 +1,77 @@
+.PostContainer {
+    background-color: #242526;
+    border-radius: 5px;
+}
+
+.heading {
+    display: flex;
+    justify-self: flex-start;
+    padding: 10px 20px;
+}
+
+.PostUserName {
+    font-size: 15px;
+    color: rgba(245, 245, 245, 0.8);
+}
+
+.PostTime {
+    font-size: 12px;
+    margin-top: 3px;
+    color: rgba(245, 245, 245, 0.8);
+}
+
+.caption {
+    padding: 5px 20px;
+    color: rgba(245, 245, 245, 0.8);
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.imageContainer>img {
+    margin: 0 auto;
+    width: auto;
+    max-height: 450px;
+}
+
+.likeCounterContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    padding: 0 20px;
+    color: antiquewhite;
+}
+
+.likeCounterContainer>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* column-gap: 2px; */
+}
+
+.actionContainer {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.767);
+    padding: 5px 10px;
+    margin: 3px 0;
+}
+
+.actionContainer>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.33;
+    column-gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.actionContainer>div:hover {
+    background-color: #434446;
+}

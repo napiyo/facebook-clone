@@ -1,0 +1,16 @@
+.HomeReelsContainer {
+    display: flex;
+    flex-direction: row;
+    /* margin: 20px auto; */
+    margin-top: 14px;
+    padding: 10px;
+    column-gap: 6px;
+    width: 100%;
+    margin: 10px auto 0 auto;
+    overflow-x: auto;
+    flex-grow: 0;
+}
+
+.HomeReelsContainer::-webkit-scrollbar {
+    background-color: transparent;
+}
