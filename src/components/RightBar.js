@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar_menuItems from './Sidebar_menuItems'
 
 export default function RightBar() {
@@ -13,7 +13,7 @@ export default function RightBar() {
             <Sidebar_menuItems src="https://1fid.com/wp-content/uploads/2021/07/fb_dp_5-scaled.jpg" title="Lokesh Gautam"/>
             <Sidebar_menuItems src="https://www.teahub.io/photos/full/76-768540_download-hd-dp-photo-wallpaper-hidden-face-beautiful.jpg" title="Angel Priya"/>
            
-         
+        
         </div>
     )
 }

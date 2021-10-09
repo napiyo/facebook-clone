@@ -8,7 +8,7 @@ import { width } from '@mui/system';
 import { Close, EmojiEmotionsOutlined } from '@mui/icons-material';
 
 export default function CreatePost() {
-    const[open,setOpen]=useState(true)
+    const[open,setOpen]=useState(false)
     // const [state, setstate] = useState(initialState)
     const ModalHandler=()=>{
        if(open){

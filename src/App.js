@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function App() {
     const[User,setUser]=useState(null);
-    if(User !=null){
+    // if(User !=null){
     return ( <div className='Header'>
         <Header />
         <div className='main_body'>
@@ -20,10 +20,11 @@ function App() {
 
         </div>
         </div>
-    );}
-    else{
-        return <LoginSignupPage/>
-    }
+    );
+// }
+    // else{
+    //     return <LoginSignupPage/>
+    // }
 }
 
 export default App;
