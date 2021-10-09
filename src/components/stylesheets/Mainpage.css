@@ -1,0 +1,60 @@
+.main_body {
+    display: flex;
+    position: relative;
+    height: calc(100vh - 50px);
+    /* background-color: white; */
+    overflow-x: hidden;
+    background: #18191A;
+    overflow-y: auto;
+    width: 100vw;
+}
+
+.SidebarContainer {
+    width: 25%;
+    position: sticky;
+    top: 0;
+}
+
+.HomeFeedContainer {
+    width: 50%;
+}
+
+.RightBarContainer {
+    position: sticky;
+    top: 0;
+    right: 0;
+    flex: 25%;
+    height: 100%;
+}
+
+
+/* scroll bar for chrome */
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #2b2d2e;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: rgb(122, 122, 122);
+    border-radius: 8px;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

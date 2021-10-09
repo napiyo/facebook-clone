@@ -2,8 +2,35 @@ import { Close } from '@mui/icons-material';
 import { IconButton, Modal } from '@mui/material';
 import React ,{useState} from 'react';
 import './login-signup-page.css';
+import {  createUserWithEmailAndPassword } from "firebase/auth";
+import auth from '../firebaseConfiguration'
 export default function LoginSignupPage() {
     const[ModalOpen, setModalOpen] = useState(false);
+    // fields value for create account form
+    const [CreateUser__email, set__CreateUser__email] = useState('')
+    const [CreateUser__password, set__CreateUser__password] = useState('')
+    //handle create new account
+    
+    function createAccount(){
+        console.log('create');
+        
+    }
+    // sign in form fields
+    const [Signin__User__Email, set__Signin__User__Email] = useState('')
+    const [Signin__User__password, set__Signin__User__password] = useState('')
+
+// signin handle
+function signinUser(){
+    console.log('signin');
+}
+
+
+
+
+
+
+
+
     const ModalHandle=()=>{
         if(ModalOpen){
             setModalOpen(false)
@@ -23,9 +50,9 @@ export default function LoginSignupPage() {
 
                 <div className='loginContainer'>
                     <form  className="LoginForm">
-                        <input type="text" placeholder="Email address or phone number" required/>
-                        <input type="password" placeholder="Password" required/>
-                        <button className="loginBtn" type='submit'>Log in</button>
+                        <input type="text" placeholder="Email address or phone number" value={Signin__User__Email} onChange={(e)=>{set__Signin__User__Email(e.target.value)}} required/>
+                        <input type="password" placeholder="Password" value={Signin__User__password} onChange={(e)=>{set__Signin__User__password(e.target.value)}} required/>
+                        <button className="loginBtn" type='button' onClick={signinUser}>Log in</button>
                     </form>
                     <div className='LoginForm'>
                         <p style={{marginTop:'5px',marginBottom:0, color:"#1877F2",cursor:'pointer',fontSize:'13px'}}>Forgotten password?</p>
@@ -55,9 +82,9 @@ export default function LoginSignupPage() {
                                     <input type="text" placeholder="First Name" required/>
                                     <input type="text" placeholder="Last Name" required/>
                                 </div>
-                                <input type="email" placeholder="Your e-mail ?" required/>
-                                <input type="password" placeholder="Create Password" required/>
-                                <button className="signup_btn">Sign Up</button>
+                                <input type="email" placeholder="Your e-mail ?" value={CreateUser__email} onChange={(e)=>{set__CreateUser__email(e.target.value)}}  required/>
+                                <input type="password" placeholder="Create Password" value={CreateUser__password} onChange={(e)=>{set__CreateUser__password(e.target.value)}} required/>
+                                <button className="signup_btn" type='button' onClick={createAccount}>Sign Up</button>
                            </form>
                         </div>
             </Modal>
