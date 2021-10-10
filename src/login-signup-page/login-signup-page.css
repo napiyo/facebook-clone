@@ -181,6 +181,35 @@
     cursor: pointer;
 }
 
+.wrongPassAlert {
+    background: rgba(255, 0, 0, 0.603);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    animation: shake 0.3s linear 3;
+    /* transition: all 1s; */
+    display: none;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(6px);
+    }
+    50% {
+        transform: translateX(0px);
+    }
+    75% {
+        transform: translateX(-6px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .facebookLogo {
         font-size: 30px;

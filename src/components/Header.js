@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef,useState,useEffect } from 'react';
 import './stylesheets/Header.css';
 //importing icons from material UI
 import { signOut } from "firebase/auth";
@@ -21,6 +21,12 @@ import auth from '../firebaseConfiguration';
 // import { UserProvider } from '../userContext';
 
 export default function Header() {
+    const [username, setusername] = useState('loading..')
+    useEffect(() => {
+       setusername(auth.currentUser.displayName)
+
+       console.log('innnn');
+    }, [])
     const Dropdown= useRef(null);
     const userObject = useContext(UserProvider)
     function showDropdown(){
@@ -70,7 +76,7 @@ signOut(auth).then(()=>{
             
             <div className="header__right">
                
-                 <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}> {auth.currentUser.displayName} </p>
+                 <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}> {username} </p>
                     
            <IconButton>   <AppsIcon /></IconButton>
                 <IconButton>    <ForumIcon /></IconButton>

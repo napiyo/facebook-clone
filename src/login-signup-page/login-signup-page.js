@@ -1,6 +1,6 @@
 import { Close } from '@mui/icons-material';
 import { IconButton, Modal } from '@mui/material';
-import React ,{useContext, useEffect, useState} from 'react';
+import React ,{useContext, useEffect, useState,useRef} from 'react';
 import './login-signup-page.css';
 import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
 import auth from '../firebaseConfiguration'
@@ -11,6 +11,7 @@ import {  updateProfile} from "firebase/auth";
 
 export default function LoginSignupPage() {
     const[ModalOpen, setModalOpen] = useState(false);
+    const wrongpassAlert = useRef(null)
     //get user
     const userObject=useContext(UserProvider)
     console.log(userObject);
@@ -24,8 +25,8 @@ export default function LoginSignupPage() {
 
         createUserWithEmailAndPassword(auth, CreateUser__email, CreateUser__password).then((Credential) => {
             userObject.changeUser(Credential);
-            console.log('update data kro',CreateUser__fname);
-            updateProfile(userObject.user,{
+            // console.log('update data kro',CreateUser__fname);
+            updateProfile(Credential.user,{
                 displayName: CreateUser__fname
             }).then(()=>{
                 console.log('updated');
@@ -52,6 +53,16 @@ function signinUser(){
     }).catch((e)=>{
         set__Signin__User__Email('')
         set__Signin__User__password('')
+        //show alert
+
+        wrongpassAlert.current.style.display='block';
+        setTimeout(() => {
+            wrongpassAlert.current.style.display='none';
+            
+        }, 3000);
+
+
+
 
     })
 }
@@ -89,7 +100,7 @@ function signinUser(){
                  <div>
 
                 <div className='loginContainer'>
-                    <div className='wrongPassAlert'>wrong pass</div>
+                    <div className='wrongPassAlert' ref={wrongpassAlert}> Email or password wrong. please try again</div>
                     <form  className="LoginForm">
                         <input type="text" placeholder="Email address or phone number" value={Signin__User__Email} onChange={(e)=>{set__Signin__User__Email(e.target.value)}} required/>
                         <input type="password" placeholder="Password" value={Signin__User__password} onChange={(e)=>{set__Signin__User__password(e.target.value)}} required/>
