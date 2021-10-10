@@ -100,12 +100,33 @@
     .dropdown {
         display: none;
         position: absolute;
-        background-color: white;
         top: 60px;
         z-index: 2222;
         right: 30px;
-        padding: 20px;
+    }
+    
+    .dropdownmenu {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        background-color: rgb(116, 111, 111);
         border-radius: 5px;
+        color: white;
+        width: 200px;
+        /* row-gap: 7px; */
+        overflow: hidden;
+    }
+    
+    .dropdownmenu>div {
+        cursor: pointer;
+        padding: 8px 20px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .dropdownmenu>div:hover {
+        background-color: #999999;
     }
     
     @media only screen and (max-width: 768px) {

@@ -20,17 +20,18 @@ export default function ReelContainer(props) {
        src={props.DPsrc}
        sx={{width:'35px' , height:'35px',border:`solid 3.5px #2E89FF`}}/></div> 
         <p>{props.name}</p>
-        
+      
         <Modal open={storyModal} onClose={ModalHandler}>
-                <div className="modal" >
-                    <div style={{position:'relative'}}>
+             
+                    <div style={{position:'relative' ,height:'100%', width:'fit-content',margin:'auto'} }>
 
                 <Close sx={{color:'white',position:'absolute',top:'10px',left:'20px' ,cursor:'pointer',background:'black',borderRadius:'50%'}} onClick={ModalHandler}/>
             <img src={props.Storysrc} alt="loading" className='BigStory'/>
                     </div>
-                </div>
+                
       
         </Modal>
+     
 
         
         

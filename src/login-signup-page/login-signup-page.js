@@ -71,8 +71,7 @@ function signinUser(){
             setModalOpen(true)
         }
     }
-    console.log('___________________');
-    console.log(userObject.user,"  ",userObject.user==null);
+  
 
     
    
@@ -90,6 +89,7 @@ function signinUser(){
                  <div>
 
                 <div className='loginContainer'>
+                    <div className='wrongPassAlert'>wrong pass</div>
                     <form  className="LoginForm">
                         <input type="text" placeholder="Email address or phone number" value={Signin__User__Email} onChange={(e)=>{set__Signin__User__Email(e.target.value)}} required/>
                         <input type="password" placeholder="Password" value={Signin__User__password} onChange={(e)=>{set__Signin__User__password(e.target.value)}} required/>

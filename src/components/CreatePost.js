@@ -39,8 +39,8 @@ export default function CreatePost() {
                 <div className="Editor__options">
                     <p>Add to your post</p>
                     <div className="upload_options">
-                        <PhotoLibraryIcon />
-                        <EmojiEmotionsOutlined/>
+                        <PhotoLibraryIcon sx={{cursor:'pointer'}} />
+                        <EmojiEmotionsOutlined  sx={{cursor:'pointer'}} />
                     </div>
                    
                 </div>
@@ -55,18 +55,18 @@ export default function CreatePost() {
         <div className="CreatePostContainer">
             <div className="upperContainer">
                 <Avatar src="https://wallpaperaccess.com/full/5704723.jpg"/>
-                <input type="text" onChange={ModalHandler} onClick={ModalHandler} placeholder="What's on Your mind, Narendra?"/>
+                <input type="text" onChange={ModalHandler} onClick={ModalHandler} placeholder="What's on Your mind, Narendra?"  value=''/>
                
             </div>
             <div style={{height:1,borderBottom:`solid 1px #3A3B3C` ,width:'90%', margin:`0 auto 0 auto`}}></div>
             <div className="lowerContainer">
-                <div>
-                    <VideoCameraFrontIcon sx={{color:'red',marginRight:'5px'}}/>
+                <div onClick={ModalHandler}>
+                    <VideoCameraFrontIcon sx={{color:'red',marginRight:'5px'}} />
                     Live Video</div>
-                <div>
-                    <PhotoLibraryIcon sx={{color:'green',marginRight:'5px'}}/> Photo/Video</div>
-                <div>
-                    <SentimentSatisfiedIcon sx={{color:'yellow',marginRight:'5px'}}/> Feeling/Activity</div>
+                <div onClick={ModalHandler}>
+                    <PhotoLibraryIcon sx={{color:'green',marginRight:'5px'}} /> Photo/Video</div>
+                <div onClick={ModalHandler}>
+                    <SentimentSatisfiedIcon sx={{color:'yellow',marginRight:'5px'}} /> Feeling/Activity</div>
             </div>
         </div>
         </>

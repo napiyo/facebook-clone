@@ -76,7 +76,13 @@ signOut(auth).then(()=>{
                 <IconButton>    <ForumIcon /></IconButton>
                <IconButton>   <NotificationsActiveIcon /></IconButton>
                  <div ><IconButton  onClick={showDropdown}>   <ArrowDropDownIcon style={{position:'relative'}}/></IconButton>
-                 <div className="dropdown" ref={Dropdown}><h1 onClick={logOut} style={{cursor:'pointer'}} >log out</h1></div>
+                 <div className="dropdown" ref={Dropdown}>
+                    <div  className='dropdownmenu'>
+                        <div>Profile</div>
+                        <div onClick={logOut}>Logout</div>
+                    </div>
+
+                 </div>
                  </div>
 
             </div>
