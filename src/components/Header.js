@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import './stylesheets/Header.css';
 //importing icons from material UI
+import { signOut } from "firebase/auth";
+import { UserProvider } from '../userContext';
 
 import SearchIcon from '@mui/icons-material/SearchOutlined';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
@@ -14,7 +16,30 @@ import AppsIcon from '@mui/icons-material/Apps';
 import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 import ForumIcon from '@mui/icons-material/Forum';
 import { Avatar, IconButton } from '@mui/material';
+import auth from '../firebaseConfiguration';
+// import { UserProvider } from '../userContext';
+
 export default function Header() {
+    const Dropdown= useRef(null);
+    const userObject = useContext(UserProvider)
+    function showDropdown(){
+            
+            if(Dropdown.current.style.display=='block'){
+                Dropdown.current.style.display='none';
+            }
+            else{
+                Dropdown.current.style.display='block';
+            }
+           
+    }
+    function logOut(){
+signOut(auth).then(()=>{
+    userObject.changeUser(null)
+            console.log('k');
+}).catch((e)=>{
+    console.log(e);
+})
+    }
     return (
         <div className='header'>
             <div className="header__left">
@@ -49,7 +74,10 @@ export default function Header() {
            <IconButton>   <AppsIcon /></IconButton>
                 <IconButton>    <ForumIcon /></IconButton>
                <IconButton>   <NotificationsActiveIcon /></IconButton>
-                 <IconButton>   <ArrowDropDownIcon /></IconButton>
+                 <div ><IconButton  onClick={showDropdown}>   <ArrowDropDownIcon style={{position:'relative'}}/></IconButton>
+                 <div className="dropdown" ref={Dropdown}><h1 onClick={logOut} style={{cursor:'pointer'}} >log out</h1></div>
+                 </div>
+
             </div>
             
         </div>

@@ -35,3 +35,19 @@
     left: 10px;
     color: white;
 }
+
+.BigStory {
+    max-height: 100vh;
+    max-width: 600px;
+    margin: auto;
+    object-fit: cover;
+}
+
+.modal {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -14,16 +14,7 @@ import './components/stylesheets/Mainpage.css'
 
 export default function MainPage() {
     const obj=useContext(UserProvider);
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //       obj.changeUser(user);
-    //       const uid = user.uid;
-    //       // ...
-    //     } else {
-    //       // User is signed out
-    //       // ...
-    //     }
-    //   });
+    
    if(obj.user != null){
     return (
              <div className='Header'>

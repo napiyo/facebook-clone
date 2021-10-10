@@ -6,6 +6,7 @@ import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "fire
 import auth from '../firebaseConfiguration'
 import { UserProvider } from '../userContext';
 import MainPage from '../MainPage';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 export default function LoginSignupPage() {
@@ -39,7 +40,7 @@ function signinUser(){
     }).catch((e)=>{
         set__Signin__User__Email('')
         set__Signin__User__password('')
-        
+
     })
 }
 
@@ -60,6 +61,16 @@ function signinUser(){
     }
     console.log('___________________');
     console.log(userObject.user,"  ",userObject.user==null);
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //       userObject.changeUser(user);
+    //       console.log(user);
+    //       // ...
+    //     } else {
+    //       // User is signed out
+    //       // ...
+    //     }
+    //   });
     if(userObject.user == null){
     return (
     
