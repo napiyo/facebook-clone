@@ -1,19 +1,31 @@
 import { Close } from '@mui/icons-material';
 import { IconButton, Modal } from '@mui/material';
-import React ,{useState} from 'react';
+import React ,{useContext, useState} from 'react';
 import './login-signup-page.css';
-import {  createUserWithEmailAndPassword } from "firebase/auth";
+import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
 import auth from '../firebaseConfiguration'
+import { UserProvider } from '../userContext';
+import MainPage from '../MainPage';
+
+
 export default function LoginSignupPage() {
     const[ModalOpen, setModalOpen] = useState(false);
+    //get user
+    const userObject=useContext(UserProvider)
+    console.log(userObject);
     // fields value for create account form
-    const [CreateUser__email, set__CreateUser__email] = useState('')
-    const [CreateUser__password, set__CreateUser__password] = useState('')
+    const [CreateUser__email, set__CreateUser__email] = useState('');
+    const [CreateUser__password, set__CreateUser__password] = useState('');
     //handle create new account
-    
-    function createAccount(){
-        console.log('create');
-        
+    // console.log(auth);
+    function createAccount() {
+        createUserWithEmailAndPassword(auth, CreateUser__email, CreateUser__password).then((Credential) => {
+            userObject.changeUser(Credential);
+           
+        }).catch((e) => {
+            console.log(e);
+        });
+
     }
     // sign in form fields
     const [Signin__User__Email, set__Signin__User__Email] = useState('')
@@ -21,7 +33,14 @@ export default function LoginSignupPage() {
 
 // signin handle
 function signinUser(){
-    console.log('signin');
+    signInWithEmailAndPassword(auth,Signin__User__Email,Signin__User__password).then((oldCredential)=>{
+        userObject.changeUser(oldCredential)
+        
+    }).catch((e)=>{
+        set__Signin__User__Email('')
+        set__Signin__User__password('')
+        
+    })
 }
 
 
@@ -39,7 +58,13 @@ function signinUser(){
             setModalOpen(true)
         }
     }
+    console.log('___________________');
+    console.log(userObject.user,"  ",userObject.user==null);
+    if(userObject.user == null){
     return (
+    
+        <>
+
         <div className='body'>
             <div className="mainContainer">
                 <div className='title'>
@@ -89,5 +114,9 @@ function signinUser(){
                         </div>
             </Modal>
         </div>
-    )
+        </>
+    )}
+    else{
+        return <MainPage/>
+    }
 }
