@@ -1,12 +1,12 @@
 import { Close } from '@mui/icons-material';
 import { IconButton, Modal } from '@mui/material';
-import React ,{useContext, useState} from 'react';
+import React ,{useContext, useEffect, useState} from 'react';
 import './login-signup-page.css';
 import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
 import auth from '../firebaseConfiguration'
 import { UserProvider } from '../userContext';
 import MainPage from '../MainPage';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {  updateProfile} from "firebase/auth";
 
 
 export default function LoginSignupPage() {
@@ -17,15 +17,27 @@ export default function LoginSignupPage() {
     // fields value for create account form
     const [CreateUser__email, set__CreateUser__email] = useState('');
     const [CreateUser__password, set__CreateUser__password] = useState('');
+    const [CreateUser__fname, set__CreateUser__fname] = useState('');
     //handle create new account
     // console.log(auth);
     function createAccount() {
+
         createUserWithEmailAndPassword(auth, CreateUser__email, CreateUser__password).then((Credential) => {
             userObject.changeUser(Credential);
+            console.log('update data kro',CreateUser__fname);
+            updateProfile(userObject.user,{
+                displayName: CreateUser__fname
+            }).then(()=>{
+                console.log('updated');
+            }).catch((e)=>{
+                console.log(e);
+            })
            
         }).catch((e) => {
             console.log(e);
         });
+        //update user data
+        
 
     }
     // sign in form fields
@@ -61,16 +73,9 @@ function signinUser(){
     }
     console.log('___________________');
     console.log(userObject.user,"  ",userObject.user==null);
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //       userObject.changeUser(user);
-    //       console.log(user);
-    //       // ...
-    //     } else {
-    //       // User is signed out
-    //       // ...
-    //     }
-    //   });
+
+    
+   
     if(userObject.user == null){
     return (
     
@@ -115,7 +120,7 @@ function signinUser(){
                           <div style={{height:1,width:'105%',borderBottom:`solid 1px black`,margin:`5px 0`}}> </div>
                            <form className='signForm__all_fields'>
                                 <div className="Name__Field">
-                                    <input type="text" placeholder="First Name" required/>
+                                    <input type="text" placeholder="First Name" value={CreateUser__fname} onChange={(e)=>{set__CreateUser__fname(e.target.value)}} required/>
                                     <input type="text" placeholder="Last Name" required/>
                                 </div>
                                 <input type="email" placeholder="Your e-mail ?" value={CreateUser__email} onChange={(e)=>{set__CreateUser__email(e.target.value)}}  required/>
