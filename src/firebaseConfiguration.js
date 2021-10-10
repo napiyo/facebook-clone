@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from "firebase/auth";
+// import firebase from 'frirebase'
 // import 'firebase/auth'
 
 const app = initializeApp({
@@ -11,6 +12,7 @@ const app = initializeApp({
     appId: "1:472871981425:web:394698ebd8714823c526d0",
     measurementId: "G-JLCHE9VNSP"
 });
+// onAuthStateChanged
 // const app = firebase.initializeApp(firebaseConfig)
 export const auth = getAuth()
-export default app
+export default auth
