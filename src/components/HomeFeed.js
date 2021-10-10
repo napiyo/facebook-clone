@@ -5,47 +5,47 @@ import CreatePost from './CreatePost';
 import Post from './Post';
 import { ref, onValue} from "firebase/database";
 import { realtimedb } from '../firebaseConfiguration';
+import { alertClasses } from '@mui/material';
+import { ClosedCaptionSharp } from '@mui/icons-material';
 
 export default function HomeFeed() {
-    // const [postdatabeforeload, setpostdatabeforeload] = useState([])
+    const [postdata, setpostdata] = useState([])
  
-        var postdata=[];
        
-        const starCountRef = ref(realtimedb, 'Posts/');
+        const starCountRef =  ref(realtimedb, 'Posts/');
         // get post from realtime database
-           onValue(starCountRef, async (snapshot) => {
-           const data = snapshot.val();
-           console.log(data);
-           console.log('**************');
-                     postdata.push(data)
-           });
-           useEffect(() => {
-            var postdata2=   Object.values(postdata)
-       
-            const  postrenderingdata =  postdata2.map(  (i)=>{
-                var n = Object.values(i);
-                n.map((j)=>{
-        
-                    var m=Object.values(j);
-                    m.map((l)=>{
-                        console.log(l.caption);
-                        return<Post caption={l.caption}/>
-                    })
-                   
-                })
-                
-                
+          
+        useEffect(()=>{
+            onValue(starCountRef, async (snapshot) => {
+                const data = snapshot.val();
+                          var captions=[];
+                        //data is stored in Post > uid > time >{caption:captions}
+                        (Object.values(data)).forEach((e)=>{
+                                (Object.values(e)).forEach((p)=>{
+                                    captions.unshift(p.caption)
+                                })
+                        });
+                       
+                                setpostdata(captions)
+                });
+     
+        },[])
+            const postRender = postdata.map((e)=>{
+                return<>
+                <Post caption={e}/>
+                </>
             })
-           }, [])
-
 
    
     return (
         <div className='HomeFeed'>
                 <HomeReels  />
                 <CreatePost />
-                {/* {postrenderingdata} */} 
-                {/* this says this is not defined ,,, as useEffect is not loaded yet. if I dont use useEffect,.. data  will not stored in postdata*/}
+                {/* {Postrenderingdata} */}
+            {postRender}
+               
+              
         </div>
     )
 }
+

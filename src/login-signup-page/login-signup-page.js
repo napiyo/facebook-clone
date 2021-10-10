@@ -31,19 +31,26 @@ export default function LoginSignupPage() {
             // console.log('update data kro',CreateUser__fname);
             
         //updating uesr first name and email
-                set(ref(realtimedb, 'usersData/' + Credential.user.uid), {
-                  firstname:CreateUser__fname ,
-                  email:CreateUser__email
+             updateProfile(Credential.user,{displayName:CreateUser__fname}).then(()=>{
+                 console.log('first Name added');
+             }).catch((e)=>{
+                alert(e)
+             })
+
+
+                // set(ref(realtimedb, 'usersData/' + Credential.user.uid), {
+                //   firstname:CreateUser__fname ,
+                //   email:CreateUser__email
                  
-                }).then(()=>{
-                    console.log('realtime data sent');
-                }).catch((e)=>{
-                    console.log(e);
-                });
+                // }).then(()=>{
+                //     console.log('realtime data sent');
+                // }).catch((e)=>{
+                //     console.log(e);
+                // });
               
            
         }).catch((e) => {
-            console.log(e);
+            alert(e.message)
         });
         //update user data
         

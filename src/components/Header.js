@@ -3,7 +3,6 @@ import './stylesheets/Header.css';
 //importing icons from material UI
 import { signOut,getAuth } from "firebase/auth";
 import { UserProvider } from '../userContext';
-import  app  from '../firebaseConfiguration'
 
 import SearchIcon from '@mui/icons-material/SearchOutlined';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
@@ -22,13 +21,17 @@ import auth from '../firebaseConfiguration';
 
 export default function Header(props) {
     const [username, setusername] = useState('loading..')
+ 
     useEffect(() => {
-       setusername(auth.currentUser.displayName)
-
-       console.log('innnn');
-    }, [])
+       setusername(auth.currentUser.displayName);
+    }, [auth.currentUser.displayName])
+       
+   
     const Dropdown= useRef(null);
     const userObject = useContext(UserProvider)
+
+
+
     function showDropdown(){
             
             if(Dropdown.current.style.display=='block'){
@@ -39,15 +42,17 @@ export default function Header(props) {
             }
            
     }
+    // Handle Log out
     function logOut(){
 signOut(auth).then(()=>{
     userObject.changeUser(null)
-            console.log('k');
+    alert('Log Out Successfully')
 }).catch((e)=>{
     console.log(e);
 })
 }
-const newaauth=getAuth()
+console.log(username);
+
     return (
         <div className='header'>
             <div className="header__left">
@@ -78,7 +83,7 @@ const newaauth=getAuth()
             <div className="header__right">
                  
                  <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}>
-                      {props.userdata} </p>
+                      {username} </p>
                     
            <IconButton>   <AppsIcon /></IconButton>
                 <IconButton>    <ForumIcon /></IconButton>
