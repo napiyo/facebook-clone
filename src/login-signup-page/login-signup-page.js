@@ -7,6 +7,9 @@ import auth from '../firebaseConfiguration'
 import { UserProvider } from '../userContext';
 import MainPage from '../MainPage';
 import {  updateProfile} from "firebase/auth";
+import { realtimedb } from '../firebaseConfiguration';
+import { ref, set } from "firebase/database";
+
 
 
 export default function LoginSignupPage() {
@@ -26,13 +29,18 @@ export default function LoginSignupPage() {
         createUserWithEmailAndPassword(auth, CreateUser__email, CreateUser__password).then((Credential) => {
             userObject.changeUser(Credential);
             // console.log('update data kro',CreateUser__fname);
-            updateProfile(Credential.user,{
-                displayName: CreateUser__fname
-            }).then(()=>{
-                console.log('updated');
-            }).catch((e)=>{
-                console.log(e);
-            })
+            
+        //updating uesr first name and email
+                set(ref(realtimedb, 'usersData/' + Credential.user.uid), {
+                  firstname:CreateUser__fname ,
+                  email:CreateUser__email
+                 
+                }).then(()=>{
+                    console.log('realtime data sent');
+                }).catch((e)=>{
+                    console.log(e);
+                });
+              
            
         }).catch((e) => {
             console.log(e);
@@ -51,7 +59,7 @@ function signinUser(){
         userObject.changeUser(oldCredential)
         
     }).catch((e)=>{
-        set__Signin__User__Email('')
+        // set__Signin__User__Email('')
         set__Signin__User__password('')
         //show alert
 

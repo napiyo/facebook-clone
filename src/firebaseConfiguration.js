@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getDatabase } from "firebase/database";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -19,7 +20,6 @@ const app = initializeApp({
 // const app = firebase.initializeApp(firebaseConfig)
 
 
-export const auth = getAuth()
-
-
+const auth = getAuth()
+export const realtimedb = getDatabase(app)
 export default auth

@@ -8,12 +8,15 @@ import { width } from '@mui/system';
 import { Close, EmojiEmotionsOutlined } from '@mui/icons-material';
 import auth from '../firebaseConfiguration';
 import { onAuthStateChanged } from '@firebase/auth';
+import { realtimedb } from '../firebaseConfiguration';
+import { ref, set } from "firebase/database";
+
 
 export default function CreatePost(props) {
     const[open,setOpen]=useState(false)
-    // const [state, setstate] = useState(initialState)
+    const [caption, setcaption] = useState('')
     
-
+    
     
     
     const ModalHandler=()=>{
@@ -23,8 +26,21 @@ export default function CreatePost(props) {
             setOpen(true)
         }
     }
+    function writeUserData() {
+        const timenow = Date.now()
+        set(ref(realtimedb, 'Posts/' + auth.currentUser.uid+'/'+timenow), {
+          caption:caption ,
+
+         
+        }).then(()=>{
+            console.log('realtime data sent');
+            ModalHandler()
+        }).catch((e)=>{
+            console.log(e);
+        });
+      }
     // setUsername(auth.currentUser.displayName)
-    console.log(props);
+    // console.log(props);
     return (<>
     
     <Modal open={open} onClose={ModalHandler}>
@@ -44,7 +60,7 @@ export default function CreatePost(props) {
         </div>
         <div className="Modal__caption__Editor">
             <form>
-                <textarea className="Modal__textEditor" rows="10" placeholder="What's on your Mind,Narendra?"></textarea>
+                <textarea className="Modal__textEditor" rows="10" placeholder="What's on your Mind,Narendra?"  value={caption} onChange={(e)=>setcaption(e.target.value)}></textarea>
                 <div className="Editor__options">
                     <p>Add to your post</p>
                     <div className="upload_options">
@@ -53,7 +69,7 @@ export default function CreatePost(props) {
                     </div>
                    
                 </div>
-                <button className="Post_btn">Post</button>
+                <button className="Post_btn" type='button' onClick={writeUserData}>Post</button>
             </form>
         </div>
 

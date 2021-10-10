@@ -8,12 +8,12 @@ import React,{ useContext, useEffect, useState } from 'react';
 import UserContext, { UserProvider } from './userContext';
 import './components/stylesheets/Mainpage.css'
 import { onAuthStateChanged } from "firebase/auth";
-import auth from './firebaseConfiguration';
-
+import auth,{realtimedb} from './firebaseConfiguration';
+import {  ref, onValue} from "firebase/database";
 
 
 export default function MainPage() {
-    
+    const [userName, setuserName] = useState('user')
     const obj=useContext(UserProvider);
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -29,13 +29,13 @@ export default function MainPage() {
         )
              },[]);
 
-    
-   if(obj.user != null){
+             
+             if(obj.user != null){
+   
 
-    console.log(auth.currentUser.displayName);
     return (
              <div className='Header'>
-        <Header userdata={obj.user}/>
+        <Header userdata={userName}/>
       
         <div className='main_body'>
                 <div className='SidebarContainer'><Sidebar  userdata={obj.user}/></div>

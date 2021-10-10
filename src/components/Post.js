@@ -7,7 +7,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { SendOutlined } from '@mui/icons-material';
 
 
-export default function Post() {
+export default function Post(props) {
     return (
         <div className="PostContainer">
             <div className="heading">
@@ -18,7 +18,7 @@ export default function Post() {
                 </div>
             </div>
                 <div className="caption">
-                    HI guys , I'm working on clone of facebook
+                    {props.caption}
                 </div>
                 <div className="imageContainer">
                     <img src="https://static.statusqueen.com/mobilewallpaper/thumbnail/mahadev__(1)-141.jpg" alt="" />
