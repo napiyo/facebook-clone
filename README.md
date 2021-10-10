@@ -3,5 +3,5 @@
 
 
  ## *note:* work in progress
- > So far learned a lot Reactjs - Mainly Hooks, Context Api. and CRUD in Firebase
+ > So far learned a lot Reactjs - Mainly Hooks, Context Api. and CRUD in Firebase   
  > Most Importantly I leanred to Ask  on StackOverflow not just seeing others questions. 
