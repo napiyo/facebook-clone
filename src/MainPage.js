@@ -35,12 +35,12 @@ export default function MainPage() {
     console.log(auth.currentUser.displayName);
     return (
              <div className='Header'>
-        <Header />
+        <Header userdata={obj.user}/>
       
         <div className='main_body'>
-                <div className='SidebarContainer'><Sidebar/></div>
-                <div className='HomeFeedContainer'><HomeFeed /></div>
-                <div className='RightBarContainer'><RightBar /></div>
+                <div className='SidebarContainer'><Sidebar  userdata={obj.user}/></div>
+                <div className='HomeFeedContainer'><HomeFeed userdata={obj.user}/></div>
+                <div className='RightBarContainer'><RightBar userdata={obj.user} /></div>
 
 
         </div>

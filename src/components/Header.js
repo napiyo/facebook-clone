@@ -20,7 +20,7 @@ import { Avatar, IconButton } from '@mui/material';
 import auth from '../firebaseConfiguration';
 // import { UserProvider } from '../userContext';
 
-export default function Header() {
+export default function Header(props) {
     const [username, setusername] = useState('loading..')
     useEffect(() => {
        setusername(auth.currentUser.displayName)
@@ -76,7 +76,7 @@ signOut(auth).then(()=>{
             
             <div className="header__right">
                
-                 <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}> {username} </p>
+                 <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}> {props.userdata.displayName} </p>
                     
            <IconButton>   <AppsIcon /></IconButton>
                 <IconButton>    <ForumIcon /></IconButton>

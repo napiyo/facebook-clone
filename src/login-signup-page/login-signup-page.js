@@ -130,6 +130,7 @@ function signinUser(){
                           </div>
                           <div style={{height:1,width:'105%',borderBottom:`solid 1px black`,margin:`5px 0`}}> </div>
                            <form className='signForm__all_fields'>
+                               <input type="file" name="upload pic" />
                                 <div className="Name__Field">
                                     <input type="text" placeholder="First Name" value={CreateUser__fname} onChange={(e)=>{set__CreateUser__fname(e.target.value)}} required/>
                                     <input type="text" placeholder="Last Name" required/>

@@ -1,15 +1,21 @@
 import { Avatar, IconButton, Modal } from '@mui/material'
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
 import './stylesheets/CreatePost.css'
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import { width } from '@mui/system';
 import { Close, EmojiEmotionsOutlined } from '@mui/icons-material';
+import auth from '../firebaseConfiguration';
+import { onAuthStateChanged } from '@firebase/auth';
 
-export default function CreatePost() {
+export default function CreatePost(props) {
     const[open,setOpen]=useState(false)
     // const [state, setstate] = useState(initialState)
+    
+
+    
+    
     const ModalHandler=()=>{
        if(open){
         setOpen(false)}
@@ -17,6 +23,8 @@ export default function CreatePost() {
             setOpen(true)
         }
     }
+    // setUsername(auth.currentUser.displayName)
+    console.log(props);
     return (<>
     
     <Modal open={open} onClose={ModalHandler}>
@@ -31,7 +39,8 @@ export default function CreatePost() {
         <div style={{height:1,borderBottom:`solid 1px #505151`,margin:`5px`}}></div>
         <div className="Modal__userDetails">
             <Avatar/>
-            <p>Narendra Dewasi</p>
+            
+            <p>{props.userdata}</p>
         </div>
         <div className="Modal__caption__Editor">
             <form>
