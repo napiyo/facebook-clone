@@ -18,6 +18,7 @@ const app = initializeApp({
 });
 // onAuthStateChanged
 // const app = firebase.initializeApp(firebaseConfig)
+// check its ignored in gitignore 
 
 
 const auth = getAuth()
