@@ -1,10 +1,12 @@
 import React from 'react'
+import CreateReel from './CreateReel'
 import ReelContainer from './ReelContainer'
 import "./stylesheets/HomeReels.css"
 
 export default function HomeReels() {
     return (
         <div className='HomeReelsContainer'>
+            <CreateReel/>
             <ReelContainer DPsrc='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg' 
             Storysrc='https://i.pinimg.com/originals/a4/1e/40/a41e405ed05f7ab29ac090c0f220d35d.jpg'
             name='Narendra'/>      

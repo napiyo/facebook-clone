@@ -14,15 +14,15 @@ export default function HomeFeed() {
        
         const starCountRef =  ref(realtimedb, 'Posts/');
         // get post from realtime database
-          
+          console.log('rendering this Home  Component  ');
         useEffect(()=>{
             onValue(starCountRef, async (snapshot) => {
                 const data = snapshot.val();
                           var captions=[];
-                        //data is stored in Post > uid > time >{caption:captions}
+                        //data is stored in raltime db firebase as ----> Post > uid > timestamp >{caption:"captions"}
                         (Object.values(data)).forEach((e)=>{
                                 (Object.values(e)).forEach((p)=>{
-                                    captions.unshift(p.caption)
+                                    captions.unshift(p)
                                 })
                         });
                        
@@ -30,9 +30,10 @@ export default function HomeFeed() {
                 });
      
         },[])
+        // make  Post components
             const postRender = postdata.map((e)=>{
                 return<>
-                <Post caption={e}/>
+                <Post data={e}/>
                 </>
             })
 

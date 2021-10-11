@@ -75,3 +75,9 @@
 .actionContainer>div:hover {
     background-color: #434446;
 }
+
+.postImage {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}

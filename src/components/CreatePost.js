@@ -1,23 +1,37 @@
-import { Avatar, IconButton, Modal } from '@mui/material'
+import { Avatar, IconButton, Input, Modal } from '@mui/material'
 import React ,{useState,useEffect} from 'react'
 import './stylesheets/CreatePost.css'
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import { width } from '@mui/system';
-import { Close, EmojiEmotionsOutlined } from '@mui/icons-material';
+import { Close, EmojiEmotionsOutlined, SnippetFolderOutlined } from '@mui/icons-material';
 import auth from '../firebaseConfiguration';
 import { onAuthStateChanged } from '@firebase/auth';
 import { realtimedb } from '../firebaseConfiguration';
 import { ref, set } from "firebase/database";
+import { getStorage ,uploadBytes , ref as storageRef,uploadBytesResumable, getDownloadURL} from "firebase/storage";
+
+// import { ref  } as <Storageref></Storageref> from "firebase/storage";
 
 
-export default function CreatePost(props) {
+export default function CreatePost() {
     const[open,setOpen]=useState(false)
+    const[showuploadProgress,setshowuploadProgress]=useState(false)
+    const[progressBar,setprogressBar]=useState(0)
     const [caption, setcaption] = useState('')
+    const [username, setusername] = useState('uerName')
+    const [userfile, setuserfile] = useState(null)
     
-    
-    
+    // capture file from input
+    function handleFileChange(e){
+        setuserfile(e.target.files[0])
+    }
+
+
+    useEffect(() => {
+        setusername(auth.currentUser.displayName)
+    }, [])
     
     const ModalHandler=()=>{
        if(open){
@@ -26,21 +40,86 @@ export default function CreatePost(props) {
             setOpen(true)
         }
     }
-    function writeUserData() {
-        const timenow = Date.now()
+    const showProgressHandler=()=>{
+        if(showuploadProgress){
+            setshowuploadProgress(false)}
+         else{
+            setshowuploadProgress(true)
+         }
+     }
+    function realtime(e,timenow){
         set(ref(realtimedb, 'Posts/' + auth.currentUser.uid+'/'+timenow), {
-          caption:caption ,
+            caption:caption ,
+            Imageurl:e,
+            time:timenow,
+            uid:auth.currentUser.uid,
+            likes:0,
+            username:auth.currentUser.displayName
+          }).then(()=>{
+              setcaption('')
+              // ModalHandler()
+          }).catch((e)=>{
+              console.log(e);
+          });
+    }
+    function writeUserData() {
+        ModalHandler() 
+        const timenow = Date.now()
+        
+        // upload image in firebase storage separately
 
+        if(userfile != null){
+        const FirebaseStorageRef= getStorage()
+        
+            const FileRef =storageRef(FirebaseStorageRef,'Post/'+auth.currentUser.uid+'/'+timenow)
+                console.log(FileRef);
+               const uploadTask= uploadBytesResumable(FileRef,userfile)
+               showProgressHandler()
+               uploadTask.on('state_changed', 
+               (snapshot) => {
+                 // Observe state change events such as progress, pause, and resume
+                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                
+                
+                 switch (snapshot.state) {
+                   case 'paused':
+                     console.log('Upload is paused');
+                     break;
+                   case 'running':
+                     console.log('Upload is running');
+                     setprogressBar(progress);
+                     if(progress==100){
+                        setshowuploadProgress(false)
+                     }
+                     break;
+                 }
+               }, 
+               (error) => {
+                 // Handle unsuccessful uploads
+               }, 
+               () => { 
+                 // Handle successful uploads on complete
+                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                   
+                    realtime(downloadURL,timenow)
+                 });
+               }
+             );
+             
+
+        }
+        else{
+            realtime('',timenow)
+        }
          
-        }).then(()=>{
-            console.log('realtime data sent');
-            ModalHandler()
-        }).catch((e)=>{
-            console.log(e);
-        });
-      }
-    // setUsername(auth.currentUser.displayName)
-    // console.log(props);
+    }
+
+
+
+
+
     return (<>
     
     <Modal open={open} onClose={ModalHandler}>
@@ -56,16 +135,16 @@ export default function CreatePost(props) {
         <div className="Modal__userDetails">
             <Avatar/>
             
-            <p>{props.userdata}</p>
+            <p>{username}</p>
         </div>
         <div className="Modal__caption__Editor">
             <form>
-                <textarea className="Modal__textEditor" rows="10" placeholder="What's on your Mind,Narendra?"  value={caption} onChange={(e)=>setcaption(e.target.value)}></textarea>
+                <textarea className="Modal__textEditor" rows="10" placeholder=  {`What's on your Mind ${username} ?`}  value={caption} onChange={(e)=>setcaption(e.target.value)}></textarea>
                 <div className="Editor__options">
                     <p>Add to your post</p>
                     <div className="upload_options">
-                        <PhotoLibraryIcon sx={{cursor:'pointer'}} />
-                        <EmojiEmotionsOutlined  sx={{cursor:'pointer'}} />
+                           <input type="file" name="myPostImage" accept="image/*"  onChange={handleFileChange}/><PhotoLibraryIcon />
+                        <EmojiEmotionsOutlined />
                     </div>
                    
                 </div>
@@ -94,6 +173,14 @@ export default function CreatePost(props) {
                     <SentimentSatisfiedIcon sx={{color:'yellow',marginRight:'5px'}} /> Feeling/Activity</div>
             </div>
         </div>
+        <Modal  open={showuploadProgress} onClose={showProgressHandler}>
+                    <div className='progressbar'>
+                        <div className='Bar'>
+                            <div className="pBar" style={{width:progressBar+'%'}}></div>
+                        </div>
+                        <div className='num'>{Math.floor(progressBar)}% uploaded...</div>
+                    </div>
+        </Modal>
         </>
     )
 }
