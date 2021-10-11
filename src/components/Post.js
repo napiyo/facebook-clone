@@ -53,8 +53,7 @@ obdate=obdate.toLocaleString();}
                     <img src={props.data.Imageurl} className='postImage'/>
                 </div>
                 <div className="likeCounterContainer">
-                        <div>
-                    <IconButton><ThumbUpIcon sx={{color:'#2D88FF'}}/></IconButton>
+                        <div style={{marginTop:'6px'}}>
                     <p className='LikesNumber'>{props.data.likes} Likes</p>
                     </div>
                     
@@ -63,7 +62,7 @@ obdate=obdate.toLocaleString();}
                 <div  style={{ height:'1px',width:'90%',borderBottom:`1px solid white`,margin:'5px auto'}} ></div>
                     <div className="actionContainer">
                                         <div onClick={LikePost}>
-                                            {Liked?<ThumbUpIcon/>:<ThumbUpIconOutlined />}
+                                            {Liked?<ThumbUpIcon sx={{color:'#2D88FF'}}/>:<ThumbUpIconOutlined />}
                                             
                                             Like
                                         </div>  

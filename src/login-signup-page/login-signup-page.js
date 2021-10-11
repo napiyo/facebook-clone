@@ -107,6 +107,10 @@ function signinUser(){
         <>
 
         <div className='body'>
+           <div style={{position:'absolute',top:'50px'}}>
+               <marquee loop>This is Not a phising Site And Not a original Facebook. This is facebook clone made to learn reactJs, it uses Firebase as Backend. 
+                   you cant use facebook account to login, it has nothing to do with facebook </marquee>
+           </div> 
             <div className="mainContainer">
                 <div className='title'>
                     <h1 className='facebookLogo'>facebook</h1>
