@@ -22,7 +22,7 @@ export default function HomeFeed() {
                         //data is stored in raltime db firebase as ----> Post > uid > timestamp >{caption:"captions"}
                         (Object.values(data)).forEach((e)=>{
                                 (Object.values(e)).forEach((p)=>{
-                                    captions.unshift(p)
+                                    captions.push(p)
                                 })
                         });
                        
@@ -31,7 +31,9 @@ export default function HomeFeed() {
      
         },[])
         // make  Post components
-            const postRender = postdata.map((e)=>{
+        //sort post
+        
+            const postRender = (postdata.sort((a,b) => b.time-a.time)).map((e)=>{
                 return<>
                 <Post data={e}/>
                 </>
