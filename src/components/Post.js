@@ -12,8 +12,7 @@ export default function Post(props) {
    let obdate=0;
     if(props.data.time != null){
 obdate= new Date(props.data.time)
-obdate=obdate.toLocaleString()
-  console.log(obdate.toLocaleString());}
+obdate=obdate.toLocaleString();}
 //   const date = obdate.getDate()
 
 //post Liked
@@ -29,12 +28,9 @@ obdate=obdate.toLocaleString()
                     setLiked(true)
 
             }
-                set(ref(realtimedb, 'Posts/' + props.data.uid+'/'+props.data.time+'/likes'), newlikes).then(()=>{
-                    console.log('liked post');
-                      // ModalHandler()
-                  }).catch((e)=>{
-                      console.log(e);
-                  });
+                set(ref(realtimedb, 'Posts/' + props.data.uid+'/'+props.data.time+'/likes'), newlikes)
+                    
+                 
 
             
         }
@@ -67,7 +63,8 @@ obdate=obdate.toLocaleString()
                 <div  style={{ height:'1px',width:'90%',borderBottom:`1px solid white`,margin:'5px auto'}} ></div>
                     <div className="actionContainer">
                                         <div onClick={LikePost}>
-                                            <ThumbUpIconOutlined />
+                                            {Liked?<ThumbUpIcon/>:<ThumbUpIconOutlined />}
+                                            
                                             Like
                                         </div>  
                                         <div>

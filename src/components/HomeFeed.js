@@ -14,7 +14,7 @@ export default function HomeFeed() {
        
         const starCountRef =  ref(realtimedb, 'Posts/');
         // get post from realtime database
-          console.log('rendering this Home  Component  ');
+        
         useEffect(()=>{
             onValue(starCountRef, async (snapshot) => {
                 const data = snapshot.val();
