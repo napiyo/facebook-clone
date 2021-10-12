@@ -115,6 +115,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: 450px;
+    max-width: 95vw;
     margin: auto;
     background-color: white;
     display: flex;
@@ -186,15 +187,40 @@
     color: white;
     padding: 8px 20px;
     border-radius: 5px;
-    margin-bottom: 10px;
-    animation: shake 0.3s linear 3;
+    animation: shake 2s linear;
+    position: absolute;
+    top: 12%;
+    right: 25%;
     /* transition: all 1s; */
     display: none;
+    transition: all 1s;
+    /* transform: translateX(-100vw); */
+}
+
+.loader {
+    border: 6px solid gray;
+    border-top: 6px solid #032450;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #F0F2F5;
+    position: absolute;
+    animation: spin 2s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes shake {
     0% {
-        transform: translateX(0px);
+        transform: translateX(-100vw);
     }
     25% {
         transform: translateX(6px);

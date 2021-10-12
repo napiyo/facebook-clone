@@ -58,3 +58,17 @@
  ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+@media only screen and (max-width: 600px) {
+    .SidebarContainer {
+        display: none;
+    }
+    .RightBarContainer {
+        display: none;
+    }
+    .HomeFeedContainer {
+        width: 95%;
+        margin: auto;
+        /* margin: -10px; */
+    }
+}

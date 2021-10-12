@@ -32,8 +32,8 @@ export default function HomeFeed() {
         },[])
         // make  Post components
         //sort post
-        
-            const postRender = (postdata.sort((a,b) => b.time-a.time)).map((e)=>{
+
+            const postRender = ((postdata.sort((a,b) => b.time-a.time)).slice(0,20)).map((e)=>{
                 return<>
                 <Post data={e}/>
                 </>
@@ -41,10 +41,11 @@ export default function HomeFeed() {
 
    
     return (
+
         <div className='HomeFeed'>
                 <HomeReels  />
                 <CreatePost />
-                {/* {Postrenderingdata} */}
+           
             {postRender}
                
               

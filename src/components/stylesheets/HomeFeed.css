@@ -6,3 +6,28 @@
     flex-direction: column;
     row-gap: 20px;
 }
+
+.show-loaderForPost {
+    border: solid 5px grey;
+    border-top: solid 5px #1877F2;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1.5s linear infinite;
+    background-color: transparent;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .HomeFeed {
+        width: 100%;
+    }
+}

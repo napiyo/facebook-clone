@@ -29,20 +29,20 @@ export default function MainPage() {
         )
              },[]);
 
-             
+         
              if(obj.user != null){
    
 
     return (
              <div className='Header'>
-        <Header userdata={userName}/>
+        <Header userdata={obj.user}/>
       
         <div className='main_body'>
                 <div className='SidebarContainer'><Sidebar  userdata={obj.user}/></div>
                 <div className='HomeFeedContainer'><HomeFeed userdata={obj.user}/></div>
                 <div className='RightBarContainer'><RightBar userdata={obj.user} /></div>
 
-
+          
         </div>
      
         </div>

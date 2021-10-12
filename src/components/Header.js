@@ -16,15 +16,16 @@ import AppsIcon from '@mui/icons-material/Apps';
 import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 import ForumIcon from '@mui/icons-material/Forum';
 import { Avatar, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import auth from '../firebaseConfiguration';
 // import { UserProvider } from '../userContext';
 
 export default function Header(props) {
-    const [username, setusername] = useState('loading..')
+    // const [username, setusername] = useState('loading..')
+    const [showMobilemenudiv, setshowMobilemenudiv] = useState(false)
+    const [name, setname] = useState(auth.currentUser.displayName)
  
-    useEffect(() => {
-       setusername(auth.currentUser.displayName);
-    }, [auth.currentUser.displayName])
        
    
     const Dropdown= useRef(null);
@@ -42,6 +43,9 @@ export default function Header(props) {
             }
            
     }
+    function showMobileMenu(){
+            showMobilemenudiv?setshowMobilemenudiv(false):setshowMobilemenudiv(true)
+    }
     // Handle Log out
     function logOut(){
 signOut(auth).then(()=>{
@@ -51,9 +55,10 @@ signOut(auth).then(()=>{
     console.log(e);
 })
 }
-console.log(username);
+
 
     return (
+        <>
         <div className='header'>
             <div className="header__left">
                 <img src="https://1000logos.net/wp-content/uploads/2021/04/Facebook-logo.png" alt="facebook" height='40px' />
@@ -79,11 +84,14 @@ console.log(username);
 
                            
             </div>
-            
+            <div className='menuFormobile'  onClick={showMobileMenu}>
+                    {(showMobilemenudiv)?<CloseIcon sx={{color:'white',fontSize:'2rem'}}/>:<MenuIcon sx={{color:'white',fontSize:'2rem'}}/>}
+                </div>
             <div className="header__right">
+                
                  
                  <Avatar className='avtar_icon' src='https://i.pinimg.com/originals/19/cd/4c/19cd4cda91ac051bb2dcfcfd9cd38820.jpg'/> <p style={{color:'#B0B3B8',fontSize:16,marginLeft:2}}>
-                      {username} </p>
+                      {props.userdata.displayName} </p>
                     
            <IconButton>   <AppsIcon /></IconButton>
                 <IconButton>    <ForumIcon /></IconButton>
@@ -99,7 +107,20 @@ console.log(username);
                  </div>
 
             </div>
+         
+
+       
+        
             
         </div>
+     
+               
+                {(showMobilemenudiv)?( <div className="menuformobile">
+      <div className="menuItemformobile" onClick={logOut}>Logout</div>
+      <div className="menuItemformobile" style={{animationDelay:'0.1s'}}>Profile</div>
+  </div>):<span></span>}
+                
+                 
+     </>
     )
 }

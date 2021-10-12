@@ -40,6 +40,7 @@ export default function CreatePost() {
             setOpen(true)
         }
     }
+   
     const showProgressHandler=()=>{
         if(showuploadProgress){
             setshowuploadProgress(false)}
@@ -139,7 +140,7 @@ export default function CreatePost() {
         </div>
         <div className="Modal__caption__Editor">
             <form>
-                <textarea className="Modal__textEditor" rows="10" placeholder=  {`What's on your Mind ${username} ?`}  value={caption} onChange={(e)=>setcaption(e.target.value)}></textarea>
+                <textarea className="Modal__textEditor" rows="10" placeholder=  {`What's on your Mind ${username} ?`}  value={caption} onChange={(e)=>setcaption(e.target.value)} autoFocus></textarea>
                 <div className="Editor__options">
                     <p>Add to your post</p>
                     <div className="upload_options">
@@ -148,7 +149,7 @@ export default function CreatePost() {
                     </div>
                    
                 </div>
-                <button className="Post_btn" type='button' onClick={writeUserData}>Post</button>
+                <button className="Post_btn" type='button' onClick={writeUserData} disabled={caption=='' && userfile==null }>Post</button>
             </form>
         </div>
 

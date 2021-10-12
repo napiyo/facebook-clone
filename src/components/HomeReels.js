@@ -14,8 +14,12 @@ export default function HomeReels() {
             Storysrc='https://ghantee.com/wp-content/uploads/2020/10/mahadev-dark-red-hd-phone-wallpaper-India.jpg'
             name='MahaDev'/> 
              <ReelContainer DPsrc='https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/mahadev-mayur-sharma.jpg' 
+            Storysrc='https://i.pinimg.com/736x/71/da/07/71da0759ea97714929f2c813ee25afb6.jpg'
+            name='Sunil'/>    <ReelContainer DPsrc='https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/mahadev-mayur-sharma.jpg' 
             Storysrc='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBb5sUvi5We61SP_WPKD5hHQmCuS3ZBopiSQ&usqp=CAU'
-            name='Sunil'/>            
+            name='manish'/>    <ReelContainer DPsrc='https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/mahadev-mayur-sharma.jpg' 
+            Storysrc='https://mobcup.b-cdn.net/images/wt/d0ac241acb0266f4da6a6c16dab5b85f.jpg'
+            name='shambhu'/>            
                    
 
         </div>

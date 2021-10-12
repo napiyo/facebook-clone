@@ -2,7 +2,7 @@ import { Close } from '@mui/icons-material';
 import { IconButton, Modal } from '@mui/material';
 import React ,{useContext, useEffect, useState,useRef} from 'react';
 import './login-signup-page.css';
-import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth";
+import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword,sendPasswordResetEmail} from "firebase/auth";
 import auth from '../firebaseConfiguration'
 import { UserProvider } from '../userContext';
 import MainPage from '../MainPage';
@@ -15,6 +15,7 @@ import { ref, set } from "firebase/database";
 export default function LoginSignupPage() {
     const[ModalOpen, setModalOpen] = useState(false);
     const wrongpassAlert = useRef(null)
+    const loader = useRef(null)
     //get user
     const userObject=useContext(UserProvider)
     console.log(userObject);
@@ -24,33 +25,26 @@ export default function LoginSignupPage() {
     const [CreateUser__fname, set__CreateUser__fname] = useState('');
     //handle create new account
     // console.log(auth);
+    
     function createAccount() {
-
+        loader.current.style.display='block';
         createUserWithEmailAndPassword(auth, CreateUser__email, CreateUser__password).then((Credential) => {
-            userObject.changeUser(Credential);
+            userObject.changeUser(Credential.user);
             // console.log('update data kro',CreateUser__fname);
             
-        //updating uesr first name and email
+        //updating uesr first name 
              updateProfile(Credential.user,{displayName:CreateUser__fname}).then(()=>{
-                 console.log('first Name added');
+                
+                
              }).catch((e)=>{
                 alert(e)
              })
 
-
-                // set(ref(realtimedb, 'usersData/' + Credential.user.uid), {
-                //   firstname:CreateUser__fname ,
-                //   email:CreateUser__email
-                 
-                // }).then(()=>{
-                //     console.log('realtime data sent');
-                // }).catch((e)=>{
-                //     console.log(e);
-                // });
               
            
         }).catch((e) => {
             alert(e.message)
+            loader.current.style.display='none';
         });
         //update user data
         
@@ -62,7 +56,8 @@ export default function LoginSignupPage() {
 
 // signin handle
 function signinUser(){
-    signInWithEmailAndPassword(auth,Signin__User__Email,Signin__User__password).then((oldCredential)=>{
+    if(Signin__User__Email != '' && Signin__User__password != '')
+    {signInWithEmailAndPassword(auth,Signin__User__Email,Signin__User__password).then((oldCredential)=>{
         userObject.changeUser(oldCredential)
         
     }).catch((e)=>{
@@ -71,22 +66,58 @@ function signinUser(){
         //show alert
 
         wrongpassAlert.current.style.display='block';
+        
+        wrongpassAlert.current.style.transform='translateX(0)';
+        wrongpassAlert.current.innerText=e.message;
         setTimeout(() => {
-            wrongpassAlert.current.style.display='none';
+         
+            wrongpassAlert.current.style.transform='translateX(-100vw)';
+            setTimeout(() => {
+                wrongpassAlert.current.style.display='none';
+            }, 1000);
             
-        }, 3000);
-
-
-
-
-    })
+        }, 4000);
+    })}
+    else{
+        wrongpassAlert.current.style.display='block';
+        
+        wrongpassAlert.current.style.transform='translateX(0)';
+        wrongpassAlert.current.innerText='email or password are required';
+        setTimeout(() => {
+         
+            wrongpassAlert.current.style.transform='translateX(-100vw)';
+            setTimeout(() => {
+                wrongpassAlert.current.style.display='none';
+            }, 1000);
+            
+        }, 4000);
+    }
 }
 
-
-
-
-
-
+function forgotPass(){
+    if(Signin__User__Email != ''){
+        sendPasswordResetEmail(auth,Signin__User__Email)
+    .then(() => {
+      alert('Check your email for password reset')
+    }).catch((e)=>{
+        alert(e.message)
+    });
+}
+else{
+    wrongpassAlert.current.style.display='block';
+        
+        wrongpassAlert.current.style.transform='translateX(0)';
+        wrongpassAlert.current.innerText='Please  Enter your email and then click forgot password';
+        setTimeout(() => {
+         
+            wrongpassAlert.current.style.transform='translateX(-100vw)';
+            setTimeout(() => {
+                wrongpassAlert.current.style.display='none';
+            }, 1000);
+            
+        }, 4000);
+}
+}
 
 
     const ModalHandle=()=>{
@@ -107,10 +138,7 @@ function signinUser(){
         <>
 
         <div className='body'>
-           <div style={{position:'absolute',top:'50px'}}>
-               <marquee loop>This is Not a phising Site And Not a original Facebook. This is facebook clone made to learn reactJs, it uses Firebase as Backend. 
-                   you cant use facebook account to login, it has nothing to do with facebook </marquee>
-           </div> 
+         
             <div className="mainContainer">
                 <div className='title'>
                     <h1 className='facebookLogo'>facebook</h1>
@@ -126,7 +154,7 @@ function signinUser(){
                         <button className="loginBtn" type='button' onClick={signinUser}>Log in</button>
                     </form>
                     <div className='LoginForm'>
-                        <p style={{marginTop:'5px',marginBottom:0, color:"#1877F2",cursor:'pointer',fontSize:'13px'}}>Forgotten password?</p>
+                        <p style={{marginTop:'5px',marginBottom:0, color:"#1877F2",cursor:'pointer',fontSize:'13px'}} onClick={forgotPass}>Forgotten password?</p>
                         <div style={{width:'100%',height:0.1,background:'rgb(196, 191, 191)',marginTop:`-15px`}}></div>
                         <button className='createAccBtn' onClick={ModalHandle} >Create New Account</button>
                     </div>
@@ -136,8 +164,11 @@ function signinUser(){
                  </div>
             </div>
             <Modal open={ModalOpen} onClose={ModalHandle}>
-                    
+                      
                         <div className="signForm">
+                        <div className='loader' ref={loader}>
+
+                        </div>
                           <div className="signup__form__header">
                               <div>
                                   <h3>Sign Up</h3>
