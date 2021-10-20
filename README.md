@@ -2,8 +2,8 @@
 > facebook clone , using Reactjs ,   contex API, Firebase ,material UI , news API     
 *****  
 
-### ⚠️ this facebook clone NOT facebook , so when you visit this link you may see "unsafe site", click on > details > and then at the bottom > visit unsafe site
-#### this is Not a phising site,  we dont store your password, firebase authentication is used. 100% safe to visit
+### ⚠️ This is a facebook clone NOT facebook , so when you visit this link you may see "unsafe site" warning , click on > details > and then at the bottom > visit unsafe site
+#### This is Not a phising site,  we dont store your password, firebase authentication is used. 100% safe to visit
 -  no need to Enter correct email. you can type any random email
 
 
@@ -11,7 +11,7 @@
  > Most Importantly I leanred to Ask  on StackOverflow not just seeing others questions. 
  ******
  - firebase authentication -- create account || login with account
- - post something with image or without Image
+ - post something with image or without Image with progress dialog of upload
  - see other's  post
  - like other's post
  - full Responsive Design
